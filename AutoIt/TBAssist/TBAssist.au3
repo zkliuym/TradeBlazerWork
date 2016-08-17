@@ -928,7 +928,7 @@ EndFunc
 ; 读取配置文件信息，如有空的项目及时进行提示，并提示误输入后该如何修改
 ;+++++++++++++++++++++++++++++++++++++
 Func myIniRead($ConfigFile = $TBAssistConfig, $DiscName = "", $ItemName = "", $DefaultValue = "")
-   Local $IniValueTemp = IniRead($ConfigFile, $DiscName, $ItemName, $DefaultValue); //TB登录ID
+   Local $IniValueTemp = IniRead($ConfigFile, $DiscName, $ItemName, $DefaultValue); TB登录ID
    myLog("myIniRead() " & $ItemName &": " & $IniValueTemp)
    If $IniValueTemp == $DefaultValue Then
 	  MsgBox($MB_SYSTEMMODAL, "提示", "请用记事本编辑" & $ConfigFile & "，并输入"& $ItemName & "信息及其他相关信息，然后重新运行本程序。后续如需修改操作同该操作。")
