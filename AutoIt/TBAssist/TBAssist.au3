@@ -36,7 +36,7 @@ Global $TBHolidayFile = @ScriptDir&"\Holiday.csv"
 Global $TBAssistConfig = @ScriptDir&"\TBAssist.ini"
 Global $TBQiJianBanAppFile = @ScriptDir&"\TradeBlazer.exe"
 Global $SendEmailExe = @ScriptDir&"\sendEmail\sendEmail.exe"
-Global $TBOutPutFilePath = @ScriptDir&"\Quote_Status.ini"
+Global $TBOutPutFilePath = @ScriptDir&"\Quote_AccountID_Status.ini"
 
 Global $TBloginname, $TBloginpassword, $LastSendTime0, $LastSendTime1, $LastSendTime2, $myTime, $bIsTradeDay, $TradeTime1, $TradeTime2
 Global $DayStartTime, $DayEndTime, $NightStartTime, $NightEndTime, $ServerID, $AccountID1
@@ -235,6 +235,11 @@ Func StartTB()
 
 			if WinExists("确认", "本次连接的期货行情服务器") Then
 				WinClose("确认", "本次连接的期货行情服务器")
+			EndIf
+
+			if WinExists("打开工作室", "") Then
+			   ControlClick("", "启动时显示", 1001)	; 关闭打开工作室
+			   WinClose("打开工作室", "")
 			EndIf
 
 			Sleep(10000)	;暂停10秒
@@ -881,7 +886,7 @@ Func LoadIni()
    $TBloginpassword = myIniRead($TBAssistConfig, "TB运行参数", "Password", "")						; TB登录密码
    $AccountID1 = myIniRead($TBAssistConfig, "TB运行参数", "AccountID1", "")							;用于确认启动自动交易成功的交易账号
 
-   $ServerID = myIniRead($TBAssistConfig, "TB运行参数", "ServerID", "")								; 服务器标识
+   $ServerID = @UserName & "@" & @ComputerName 														; 服务器标识
    $TBloginname = myIniRead($TBAssistConfig, "TB运行参数", "Username", "")							; TB登录ID
    $TBloginpassword = myIniRead($TBAssistConfig, "TB运行参数", "Password", "")						; TB登录密码
    $AccountID1 = myIniRead($TBAssistConfig, "TB运行参数", "AccountID1", "")							; 用于确认启动自动交易成功的交易账号
