@@ -762,7 +762,8 @@ EndFunc
 ;+++++++++++++++++++++++++++++++++++++
 ; 输出日志信息
 ;+++++++++++++++++++++++++++++++++++++
-Func myLog($logInfo = "", $fileName = $logFileName)
+Func myLog($logInfo = "")
+   Local $fileName = "AutoIt." & $DateString & ".log"
    $logInfo = $logInfo
    _FileWriteLog($fileName, $logInfo, -1)
 EndFunc
@@ -771,11 +772,9 @@ EndFunc
 ; 对主要变量初始化
 ;+++++++++++++++++++++++++++++++++++++
 Func initVarData()
-   myLog("Func initVarData() begin")
    $DateString = @YEAR & "-" & @MON & "-" & @MDAY
    $TimeString = @HOUR & ":" & @MIN & ":" & @SEC & ":" & @MSEC
    $DateTimeString = $DateString & " " & $TimeString & " "
-   $logFileName = "AutoIt." & $DateString & ".log"
    myLog("- ")
    myLog("AutoIt Start")
    myLog("initVarData()")
