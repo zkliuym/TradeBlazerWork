@@ -239,13 +239,11 @@ Func StartTB()
 
 			if WinExists("确认", "本次连接的期货行情服务器") Then
 				WinClose("确认", "本次连接的期货行情服务器")
-				Sleep(1000)
 			EndIf
 
 			if WinExists("打开工作室", "") Then
-				ControlClick("", "启动时显示", 1001)	; 关闭打开工作室
-				WinClose("打开工作室", "")
-				Sleep(1000)
+			   ControlClick("", "启动时显示", 1001)	; 关闭打开工作室
+			   WinClose("打开工作室", "")
 			EndIf
 
 			Sleep(10000)	;暂停10秒
@@ -326,7 +324,7 @@ Func LoginTradeAccount($BuDengLu=0)
 		 _RunDos($sCommand&" -o message-charset=GBK")
 		 Return 1
 	  EndIf
-	  Sleep(20000)
+	  Sleep(10000)
    EndIf
    myLog("Func LoginTradeAccount() End")
 EndFunc
@@ -428,7 +426,7 @@ Func PositionMonitor($nChkInterMin=5,$nSendMail=1)
 		 $LastChkTime = $strNow
 	  EndIf
    EndIf
-   ; myLog("PositionMonitor() End")
+   myLog("PositionMonitor() End")
 EndFunc
 ;CloseTB()
 
@@ -508,6 +506,8 @@ EndFunc
 ; 行情断开报警
 ;+++++++++++++++++++++++++++++++++++++
 Func QuoteAlert($nAlert=0,$ChangeIP=0,$nCFFEX=0,$nSHFE=0,$nDCE=0,$nCZCE=0)
+   myLog("QuoteAlert()")
+
    if $OffLineIntervalSecond>=1 Then
 	  $AlertMessage = ""
 	  $strNow = _Now()
@@ -536,12 +536,11 @@ Func QuoteAlert($nAlert=0,$ChangeIP=0,$nCFFEX=0,$nSHFE=0,$nDCE=0,$nCZCE=0)
 			$AlertMessage = $AlertMessage & "QuoteServerIP:" & GetTBQuoteServerIP()
 		 EndIf
 		 If $nAlert = 1 Then
-			myLog($ServerID&"警告：服务器行情断开")
-			$Subject = $ServerID&"警告：服务器行情断开"
-			$Body = $AlertMessage&"(备注:在连续交易时间段内,如果在" & $OffLineIntervalSecond & "秒内数据不更新则认为行情服务器断开,据此发送邮件报警,仅供参考)"
-			$sCommand = @ScriptDir&"\sendEmail\SendEmail.exe -f "&$FromAddress&" -t "&$ToAddress&" -s "&$SmtpServer&" -xu "&$UserName&" -xp "&$Password&" -u "&$Subject&" -m "&$Body
+		    $Subject = $ServerID&"警告：服务器行情断开"
+	        $Body = $AlertMessage&"(备注:在连续交易时间段内,如果在" & $OffLineIntervalSecond & "秒内数据不更新则认为行情服务器断开,据此发送邮件报警,仅供参考)"
+		    $sCommand = @ScriptDir&"\sendEmail\SendEmail.exe -f "&$FromAddress&" -t "&$ToAddress&" -s "&$SmtpServer&" -xu "&$UserName&" -xp "&$Password&" -u "&$Subject&" -m "&$Body
 			myLog($sCommand)
-			_RunDos($sCommand&" -o message-charset=GBK")
+		    _RunDos($sCommand&" -o message-charset=GBK")
 		 EndIf
 	     $LastSendTime1 = $strNow
       EndIf
@@ -564,6 +563,8 @@ Func QuoteAlert($nAlert=0,$ChangeIP=0,$nCFFEX=0,$nSHFE=0,$nDCE=0,$nCZCE=0)
       EndIf
 	  Sleep(500)
    EndIf
+   myLog("QuoteAlert() end")
+
 EndFunc
 
 ;+++++++++++++++++++++++++++++++++++++
