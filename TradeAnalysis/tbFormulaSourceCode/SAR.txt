@@ -1,0 +1,201 @@
+抛物线转向
+
+//------------------------------------------------------------------------
+// 简称: SAR
+// 名称: 抛物线转向
+// 类别: 公式应用
+// 类型: 内建应用
+//------------------------------------------------------------------------
+
+Params
+	Numeric AfStep( 0.02);
+	Numeric AfLimit( 0.2 ) ;
+Vars
+	Numeric oParCl( 0 ); 
+	Numeric oParOp( 0 );
+	Numeric oPosition( 0 );
+	Numeric oTransition( 0 );
+Begin
+	ParabolicSAR( AfStep, AfLimit, oParCl, oParOp, oPosition, oTransition ) ;
+	PlotNumeric( "ParCl" , oParCl) ;
+End
+
+//------------------------------------------------------------------------
+// 编译版本	GS2010.12.08
+// 版权所有	TradeBlazer Software 2003－2010
+// 更改声明	TradeBlazer Software保留对TradeBlazer平
+//			台每一版本的TradeBlazer公式修改和重写的权利
+//------------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+// 简称: ParabolicSAR
+// 名称: 求抛物线转向
+// 类别: 用户函数
+// 类型: 内建函数
+// 输出: 数值型
+//------------------------------------------------------------------------
+
+Params
+	Numeric AfStep(0.02);
+	Numeric AfLimit(0.2);
+	NumericRef oParClose;
+	NumericRef oParOpen;
+	NumericRef oPosition;
+	NumericRef oTransition;
+Vars
+	NumericSeries Af(0);	
+	NumericSeries ParOpen(0);
+	NumericSeries Position(0);	
+	NumericSeries HHValue(0);
+	NumericSeries LLValue(0);
+Begin
+	If (CurrentBar == 0)
+	{
+		Position = 1 ;
+		oTransition = 1 ;
+		Af = AfStep ;
+		HHValue = High ;
+		LLValue = Low ;
+		oParClose = LLValue ;
+		ParOpen = oParClose + Af * ( HHValue - oParClose) ;
+		If (ParOpen > Low)
+		{
+			ParOpen = Low ;
+		}
+	}Else
+	{	
+		oTransition = 0 ;	
+		If (High > HHValue[1])
+		{
+			HHValue = High;
+		}Else
+		{
+			HHValue = HHValue[1];
+		}
+		
+		If (Low < LLValue[1])
+		{
+			LLValue = Low;
+		}Else
+		{
+			LLValue = LLValue[1];
+		}
+		
+		If ( Position[1] == 1) 
+		{
+			If ( Low <= ParOpen[1])
+			{
+				Position = -1 ;
+				oTransition = -1 ;				
+				oParClose = HHValue ;
+				HHValue = High ;
+				LLValue  = Low ;
+	
+				Af = AfStep ;
+				ParOpen = oParClose + Af * ( LLValue - oParClose ) ;
+					
+				If (ParOpen < High)
+				{
+					ParOpen = High ;
+				}
+				
+				If (ParOpen < High[1])
+				{
+					ParOpen = High[1] ;
+				}
+			}Else
+			{
+				Position = Position[1];
+				oParClose = ParOpen[1] ;					
+				If (HHValue > HHValue[1] and Af[1] < AfLimit )
+				{
+					If(Af[1]+AfStep > AfLimit)
+					{
+						Af = AfLimit ;
+					}Else
+					{
+						Af = Af[1]+AfStep;
+					}				
+					
+				}Else
+				{
+					Af = Af[1];
+				}	
+				ParOpen = oParClose + Af * ( HHValue - oParClose ) ;				
+	
+				If (ParOpen > Low)
+				{
+					ParOpen = Low ;
+				}
+				
+				If (ParOpen > Low[1])
+				{
+					ParOpen = Low[1];
+				}
+			}
+		}Else 
+		{
+			If (High >= ParOpen[1])
+			{
+				Position = 1 ;
+				oTransition = 1 ;
+				
+				oParClose = LLValue ;
+				HHValue = High ;
+				LLValue  = Low ;
+				
+				Af = AfStep ;
+				ParOpen = oParClose + Af * ( HHValue - oParClose) ;
+				If (ParOpen > Low)
+				{
+					ParOpen = Low ;
+				}
+				
+				If (ParOpen > Low[1])
+				{
+					ParOpen = Low[1];
+				}
+			}Else
+			{
+				Position = Position[1];
+				oParClose = ParOpen[1];
+					
+				If (LLValue < LLValue[1] And Af[1] < AfLimit )
+				{
+					If(Af[1]+AfStep > AfLimit)
+					{
+						Af = AfLimit ;
+					}Else
+					{
+						Af = Af[1]+AfStep;
+					}
+				}Else
+				{
+					Af = Af[1];
+				}
+				ParOpen = oParClose + Af * ( LLValue - oParClose ) ;
+	
+				If (ParOpen < High)
+				{
+					ParOpen = High ;
+				}
+				
+				If (ParOpen < High[1])
+				{
+					ParOpen = High[1] ;
+				}
+			}
+		}	
+	}	
+	
+	oParOpen = ParOpen;
+	oPosition = Position;
+	Return True;
+End
+
+//------------------------------------------------------------------------
+// 编译版本	GS2010.12.08
+// 版权所有	TradeBlazer Software 2003－2010
+// 更改声明	TradeBlazer Software保留对TradeBlazer平
+//			台每一版本的TradeBlazer公式修改和重写的权利
+//------------------------------------------------------------------------
