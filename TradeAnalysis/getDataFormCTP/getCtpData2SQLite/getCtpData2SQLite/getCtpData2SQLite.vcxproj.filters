@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="sfit">
+      <UniqueIdentifier>{a368b210-51fa-49b1-9a8d-53219d5219ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sfit\include">
+      <UniqueIdentifier>{299d028c-36af-4b2b-8391-118efb21b6a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sfit\lib">
+      <UniqueIdentifier>{62f7e742-fe4b-4720-acb9-7a42993e3528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQLite">
+      <UniqueIdentifier>{1cdd9fad-8d00-471d-b0ae-2302be25b3ed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sfit\include\ThostFtdcMdApi.h">
+      <Filter>sfit\include</Filter>
+    </ClInclude>
+    <ClInclude Include="sfit\include\ThostFtdcTraderApi.h">
+      <Filter>sfit\include</Filter>
+    </ClInclude>
+    <ClInclude Include="sfit\include\ThostFtdcUserApiDataType.h">
+      <Filter>sfit\include</Filter>
+    </ClInclude>
+    <ClInclude Include="sfit\include\ThostFtdcUserApiStruct.h">
+      <Filter>sfit\include</Filter>
+    </ClInclude>
+    <ClInclude Include="mdspi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="traderspi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SQLite\CppSQLite3.h">
+      <Filter>SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="SQLite\sqlite3.h">
+      <Filter>SQLite</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="getCtpData2SQLite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mdspi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="traderspi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SQLite\CppSQLite3.cpp">
+      <Filter>SQLite</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sfit\lib\error.dtd">
+      <Filter>sfit\lib</Filter>
+    </None>
+    <None Include="sfit\lib\thostmduserapi.dll">
+      <Filter>sfit\lib</Filter>
+    </None>
+    <None Include="sfit\lib\thosttraderapi.dll">
+      <Filter>sfit\lib</Filter>
+    </None>
+    <None Include="SQLite\sqlite3.def">
+      <Filter>SQLite</Filter>
+    </None>
+    <None Include="SQLite\sqlite3.dll">
+      <Filter>SQLite</Filter>
+    </None>
+    <None Include="SQLite\sqlite3.exp">
+      <Filter>SQLite</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="sfit\lib\error.xml">
+      <Filter>sfit\lib</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="sfit\lib\thostmduserapi.lib">
+      <Filter>sfit\lib</Filter>
+    </Library>
+    <Library Include="sfit\lib\thosttraderapi.lib">
+      <Filter>sfit\lib</Filter>
+    </Library>
+    <Library Include="SQLite\sqlite3.lib">
+      <Filter>SQLite</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
