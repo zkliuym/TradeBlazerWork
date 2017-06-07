@@ -35,58 +35,46 @@ const char* gszFile = "test.db";
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	CppSQLite3DB db;
-
-	cout << "SQLite Header Version: " << CppSQLite3DB::SQLiteHeaderVersion() << endl;
-	cout << "SQLite Library Version: " << CppSQLite3DB::SQLiteLibraryVersion() << endl;
-	cout << "SQLite Library Version Number: " << CppSQLite3DB::SQLiteLibraryVersionNumber() << endl;
-
-	remove(gszFile);
-	db.open(gszFile);
-
-	////////////////////////////////////////////////////////////////////////////////
-	// Demonstrate getStringField(), getIntField(), getFloatField()
-	////////////////////////////////////////////////////////////////////////////////
-	db.execDML("create table parts(no int, name char(20), qty int, cost number);");
-	db.execDML("insert into parts values(1, 'part1', 100, 1.11);");
-	db.execDML("insert into parts values(2, null, 200, 2.22);");
-	db.execDML("insert into parts values(3, 'part3', null, 3.33);");
-	db.execDML("insert into parts values(4, 'part4', 400, null);");
-
-	cout << endl << "CppSQLite3Query getStringField(), getIntField(), getFloatField() tests" << endl;
-	CppSQLite3Query q = db.execQuery("select * from parts;");
-	while (!q.eof())
+	try
 	{
-		cout << q.getIntField(0) << "|";
-		cout << q.getStringField(1) << "|";
-		cout << q.getInt64Field(2) << "|";
-		cout << q.getFloatField(3) << "|" << endl;
-		q.nextRow();
-	}
+		CppSQLite3DB db;
 
-	cout << endl << "specify NULL values tests" << endl;
-	q = db.execQuery("select * from parts;");
-	while (!q.eof())
+		cout << "SQLite Header Version: " << CppSQLite3DB::SQLiteHeaderVersion() << endl;
+		cout << "SQLite Library Version: " << CppSQLite3DB::SQLiteLibraryVersion() << endl;
+		cout << "SQLite Library Version Number: " << CppSQLite3DB::SQLiteLibraryVersionNumber() << endl;
+
+		//remove(gszFile);
+		db.open(gszFile);
+		db.execDML("create table if not exists if_db(Contracts varchar(20), date datetime, \
+				   Open numeric(15,2), High numeric(15,2),Low numeric(15,2),Close numeric(15,2), Volume numeric(25,2),OpenInt numeric(25,2), Turnover numeric(25,2), \
+				   PreSettlement numeric(15,2), PreClose numeric(15,2), PreOpenInt numeric(15,2));");
+		//db.execDML("create table if not exists parts(no int, name char(20), qty int, cost number);");
+		//db.execDML("insert into parts values(1, 'part1', 100, 1.11);");
+		//db.execDML("insert into parts values(2, null, 200, 2.22);");
+		//db.execDML("insert into parts values(3, 'part3', null, 3.33);");
+		//db.execDML("insert into parts values(4, 'part4', 400, null);");
+		//db.execDML("create table if not exists IF(Contracts varchar(20), Exchange varchar(20), date datetime, PreSettlement numeric(15,2), Open numeric(15,2),\
+		//		   High numeric(15,2),Low numeric(15,2),Close numeric(15,2), Settlement numeric(15,2), Volume numeric(25,2),OpenInt numeric(25,2))");
+
+
+		//cout << endl << "Specify fields by name" << endl;
+		//CppSQLite3Query q = db.execQuery("select * from parts;");
+		//q = db.execQuery("select * from parts;");
+		//while (!q.eof())
+		//{
+		//	cout << q.getIntField("no") << "|";
+		//	cout << q.getStringField("name") << "|";
+		//	cout << q.getInt64Field("qty") << "|";
+		//	cout << q.getFloatField("cost") << "|" << endl;
+		//	q.nextRow();
+		//}
+	}
+	catch (CppSQLite3Exception& e)
 	{
-		cout << q.getIntField(0) << "|";
-		cout << q.getStringField(1, "NULL") << "|";
-		cout << q.getIntField(2, -1) << "|";
-		cout << q.getFloatField(3, -3.33) << "|" << endl;
-		q.nextRow();
+		cerr << e.errorCode() << ":" << e.errorMessage() << endl;
 	}
+	
 
-	cout << endl << "Specify fields by name" << endl;
-	q = db.execQuery("select * from parts;");
-	while (!q.eof())
-	{
-		cout << q.getIntField("no") << "|";
-		cout << q.getStringField("name") << "|";
-		cout << q.getInt64Field("qty") << "|";
-		cout << q.getFloatField("cost") << "|" << endl;
-		q.nextRow();
-	}
-
-	cout << endl << "specify NULL values tests" << endl;
 	system("pause");
 	return 0;
 
