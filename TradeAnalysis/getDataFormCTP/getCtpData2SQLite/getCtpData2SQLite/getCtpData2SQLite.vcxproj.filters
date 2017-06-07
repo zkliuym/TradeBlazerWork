@@ -91,12 +91,6 @@
     <None Include="SQLite\sqlite3.def">
       <Filter>SQLite</Filter>
     </None>
-    <None Include="SQLite\sqlite3.dll">
-      <Filter>SQLite</Filter>
-    </None>
-    <None Include="SQLite\sqlite3.exp">
-      <Filter>SQLite</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="sfit\lib\error.xml">

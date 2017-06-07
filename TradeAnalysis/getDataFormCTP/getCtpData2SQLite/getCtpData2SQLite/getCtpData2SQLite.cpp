@@ -30,8 +30,66 @@ TThostFtdcBrokerIDType		appId	= "8090";
 TThostFtdcUserIDType		userId	= "";
 TThostFtdcPasswordType	    passwd	= "";
 
+
+const char* gszFile = "test.db";
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	CppSQLite3DB db;
+
+	cout << "SQLite Header Version: " << CppSQLite3DB::SQLiteHeaderVersion() << endl;
+	cout << "SQLite Library Version: " << CppSQLite3DB::SQLiteLibraryVersion() << endl;
+	cout << "SQLite Library Version Number: " << CppSQLite3DB::SQLiteLibraryVersionNumber() << endl;
+
+	remove(gszFile);
+	db.open(gszFile);
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Demonstrate getStringField(), getIntField(), getFloatField()
+	////////////////////////////////////////////////////////////////////////////////
+	db.execDML("create table parts(no int, name char(20), qty int, cost number);");
+	db.execDML("insert into parts values(1, 'part1', 100, 1.11);");
+	db.execDML("insert into parts values(2, null, 200, 2.22);");
+	db.execDML("insert into parts values(3, 'part3', null, 3.33);");
+	db.execDML("insert into parts values(4, 'part4', 400, null);");
+
+	cout << endl << "CppSQLite3Query getStringField(), getIntField(), getFloatField() tests" << endl;
+	CppSQLite3Query q = db.execQuery("select * from parts;");
+	while (!q.eof())
+	{
+		cout << q.getIntField(0) << "|";
+		cout << q.getStringField(1) << "|";
+		cout << q.getInt64Field(2) << "|";
+		cout << q.getFloatField(3) << "|" << endl;
+		q.nextRow();
+	}
+
+	cout << endl << "specify NULL values tests" << endl;
+	q = db.execQuery("select * from parts;");
+	while (!q.eof())
+	{
+		cout << q.getIntField(0) << "|";
+		cout << q.getStringField(1, "NULL") << "|";
+		cout << q.getIntField(2, -1) << "|";
+		cout << q.getFloatField(3, -3.33) << "|" << endl;
+		q.nextRow();
+	}
+
+	cout << endl << "Specify fields by name" << endl;
+	q = db.execQuery("select * from parts;");
+	while (!q.eof())
+	{
+		cout << q.getIntField("no") << "|";
+		cout << q.getStringField("name") << "|";
+		cout << q.getInt64Field("qty") << "|";
+		cout << q.getFloatField("cost") << "|" << endl;
+		q.nextRow();
+	}
+
+	cout << endl << "specify NULL values tests" << endl;
+	system("pause");
+	return 0;
+
 	g_hEvent=CreateEvent(NULL, true, false, NULL); 
 
 	//³õÊ¼»¯UserApi

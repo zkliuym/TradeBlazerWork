@@ -50,7 +50,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -84,6 +84,8 @@
     <ClInclude Include="sfit\include\ThostFtdcTraderApi.h" />
     <ClInclude Include="sfit\include\ThostFtdcUserApiDataType.h" />
     <ClInclude Include="sfit\include\ThostFtdcUserApiStruct.h" />
+    <ClInclude Include="SQLite\CppSQLite3.h" />
+    <ClInclude Include="SQLite\sqlite3.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="traderspi.h" />
@@ -91,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="getCtpData2SQLite.cpp" />
     <ClCompile Include="mdspi.cpp" />
+    <ClCompile Include="SQLite\CppSQLite3.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -101,6 +104,7 @@
     <None Include="sfit\lib\error.dtd" />
     <None Include="sfit\lib\thostmduserapi.dll" />
     <None Include="sfit\lib\thosttraderapi.dll" />
+    <None Include="SQLite\sqlite3.def" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="sfit\lib\error.xml" />
@@ -108,6 +112,7 @@
   <ItemGroup>
     <Library Include="sfit\lib\thostmduserapi.lib" />
     <Library Include="sfit\lib\thosttraderapi.lib" />
+    <Library Include="SQLite\sqlite3.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,3 +21,5 @@
 #include <fstream>
 #include <stdio.h>
 using namespace std;
+
+#include "SQLite\CppSQLite3.h"
