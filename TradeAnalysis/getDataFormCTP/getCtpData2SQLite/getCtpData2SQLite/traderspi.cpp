@@ -298,7 +298,7 @@ void CtpTraderSpi::ReqQryDepthMarketData(CThostFtdcQryDepthMarketDataField *pQry
 void CtpTraderSpi::OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, 
 										   CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
-	cerr<<" 行情 | 合约:"<<pDepthMarketData->InstrumentID
+	cerr<<"CtpTraderSpi 行情 | 合约:"<<pDepthMarketData->InstrumentID
 		<<" 现价:"<<pDepthMarketData->LastPrice
 		<<" 最高价:" << pDepthMarketData->HighestPrice
 		<<" 最低价:" << pDepthMarketData->LowestPrice

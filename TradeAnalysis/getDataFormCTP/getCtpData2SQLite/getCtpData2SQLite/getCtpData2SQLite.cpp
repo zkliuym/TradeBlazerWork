@@ -27,8 +27,8 @@ int requestId=0;
 char mdFront[]   ="tcp://61.144.241.113:41213";
 char tradeFront[]="tcp://61.144.241.113:41205";
 TThostFtdcBrokerIDType		appId	= "8090";
-TThostFtdcUserIDType		userId	= "";
-TThostFtdcPasswordType	    passwd	= "";
+TThostFtdcUserIDType		userId	= "30303303";
+TThostFtdcPasswordType	    passwd	= "86616017";
 
 
 const char* gszFile = "test.db";
@@ -37,17 +37,6 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	try
 	{
-		CppSQLite3DB db;
-
-		cout << "SQLite Header Version: " << CppSQLite3DB::SQLiteHeaderVersion() << endl;
-		cout << "SQLite Library Version: " << CppSQLite3DB::SQLiteLibraryVersion() << endl;
-		cout << "SQLite Library Version Number: " << CppSQLite3DB::SQLiteLibraryVersionNumber() << endl;
-
-		//remove(gszFile);
-		db.open(gszFile);
-		db.execDML("create table if not exists if_db(Contracts varchar(20), date datetime, \
-				   Open numeric(15,2), High numeric(15,2),Low numeric(15,2),Close numeric(15,2), Volume numeric(25,2),OpenInt numeric(25,2), Turnover numeric(25,2), \
-				   PreSettlement numeric(15,2), PreClose numeric(15,2), PreOpenInt numeric(15,2));");
 		//db.execDML("create table if not exists parts(no int, name char(20), qty int, cost number);");
 		//db.execDML("insert into parts values(1, 'part1', 100, 1.11);");
 		//db.execDML("insert into parts values(2, null, 200, 2.22);");
@@ -75,8 +64,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	
 
-	system("pause");
-	return 0;
+	//system("pause");
+	//return 0;
 
 	g_hEvent=CreateEvent(NULL, true, false, NULL); 
 
@@ -116,13 +105,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	ResetEvent(g_hEvent);
 
 	// 查询合约
-	TThostFtdcInstrumentIDType instId = "";
-	pTraderUserSpi->ReqQryInstrument(instId);
-	WaitForSingleObject(g_hEvent,INFINITE);
-	ResetEvent(g_hEvent);
+	//TThostFtdcInstrumentIDType instId = "";
+	//pTraderUserSpi->ReqQryInstrument(instId);
+	//WaitForSingleObject(g_hEvent,INFINITE);
+	//ResetEvent(g_hEvent);
 
 	//
 	//pMdUserSpi->SubscribeMarketData((char*)strNeedQuote.c_str());
+	pMdUserSpi->SubscribeMarketData("IF1706");
 
 	//pMdUserApi->Join();      //等待接口线程退出
 	//pTraderUserApi->Join();  

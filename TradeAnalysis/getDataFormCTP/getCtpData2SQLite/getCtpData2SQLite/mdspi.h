@@ -7,7 +7,7 @@
 class CtpMdSpi : public CThostFtdcMdSpi
 {
 public:
-	CtpMdSpi(CThostFtdcMdApi* api):pUserApi(api){};
+	CtpMdSpi(CThostFtdcMdApi* api):pUserApi(api){m_db.open("test.db");};
 	///´íÎóÓ¦´ð
 	virtual void OnRspError(CThostFtdcRspInfoField *pRspInfo,
 		int nRequestID, bool bIsLast);
@@ -45,8 +45,17 @@ public:
 		TThostFtdcUserIDType	userId,	TThostFtdcPasswordType	passwd);
 	void SubscribeMarketData(char* instIdList);
 	bool IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo);
+
+protected:
+	string getDBNameFromInstrumentID(TThostFtdcInstrumentIDType InstrumentID);
+	string getDbSQLFromInstrumentID(TThostFtdcInstrumentIDType InstrumentID);
+	void string_replace(string&s1,const string&s2,const string&s3);
+	void updateSQLiteData(CThostFtdcDepthMarketDataField *pDepthMarketData);
+
 private:
 	CThostFtdcMdApi* pUserApi;
+
+	CppSQLite3DB m_db;
 };
 
 #endif
