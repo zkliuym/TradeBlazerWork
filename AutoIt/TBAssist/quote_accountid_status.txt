@@ -1,0 +1,35 @@
+//------------------------------------------------------------------------
+// 简称: Quote_AccountID_Status
+// 名称: 行情更新及交易帐户登录状态
+// 类别: 公式应用
+// 类型: 用户应用  
+// 输出:
+//------------------------------------------------------------------------
+
+Params 
+    String myAccountID("");  //默认留空则不启动自动交易状态监控，填交易帐户号则监控该交易账户的登录及启动自动交易状态
+	Numeric UpdateTick(10);  //增加tick计数器,间隔10个tick保存一次行情刷新时间,防止频繁写硬盘造成电脑响应慢
+    String myFileName("D:\TBRelease\53150\v5315\tbv5315_x64_portable\Quote_AccountID_Status.ini");  //默认输出在TB当前目录，和TradeBlazer.exe在同一个目录，可以使用绝对路径来代替
+Vars
+	Numeric TickCnt;  //增加tick计数器,间隔10个tick保存一次行情刷新时间,防止频繁写硬盘造成电脑响应慢
+Begin
+    
+	TickCnt = GetGlobalVar(0);
+	if (BarStatus==0) TickCnt = UpdateTick;
+	if (BarStatus==2 && Q_LastDate<>InvalidNumeric)
+	{
+	    TickCnt = TickCnt + 1;
+		if (TickCnt >= UpdateTick)
+		{
+	        SetTBProfileString2File(myFileName,"TB行情刷新时间",ExchangeName,DateTimeToString(Q_LastDate+Q_LastTime));
+		    if (myAccountID<>"")//启动自动交易状态监控
+		    {
+		        SetTBProfileString2File(myFileName,"交易帐户登录信息",myAccountID,A_AccountID);
+		    }
+			TickCnt = 0;
+		}
+	}
+	SetGlobalVar(0,TickCnt);
+	Commentary("A_AccountID="+A_AccountID);
+End
+ 
