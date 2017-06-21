@@ -31,7 +31,7 @@ echo,%name1%:%aim1%
 echo,%name2%:%aim2%
 echo,%name3%:%aim3%
 echo,
-echo,Time		%name1%	%name2%	%name3%	SUM	SUM1	SUM2	SUM3
+echo,Time			%name1%		%name2%		%name3%		SUM		SUM1		SUM2		SUM3
 )>%outfile%
 echo,
 echo,%name1%:%aim1%
@@ -49,19 +49,19 @@ set /a startnum=1,count=%num%
 ) else (
 set /a startnum=%num%-%times%,count=%times%
 )
-ping %aim1% -n 1 -w %wait% >nul&&(set "status1=  "&set a%num%=0)||(set "status1=- "&set /a a%num%=1)
-ping %aim2% -n 1 -w %wait% >nul&&(set "status2=  "&set b%num%=0)||(set "status2=- "&set /a b%num%=1)
-ping %aim3% -n 1 -w %wait% >nul&&(set "status3=  "&set c%num%=0)||(set "status3=- "&set /a c%num%=1)
+ping %aim1% -n 1 -w %wait% >nul&&(set "status1="&set a%num%=0)||(set "status1=- "&set /a a%num%=1)
+ping %aim2% -n 1 -w %wait% >nul&&(set "status2="&set b%num%=0)||(set "status2=- "&set /a b%num%=1)
+ping %aim3% -n 1 -w %wait% >nul&&(set "status3="&set c%num%=0)||(set "status3=- "&set /a c%num%=1)
 call :cal
 if "%status1%" EQU "  " ( set ".num_1=" ) else set .num_1=%num_1%
 if "%status2%" EQU "  " ( set ".num_2=" ) else set .num_2=%num_2%
 if "%status3%" EQU "  " ( set ".num_3=" ) else set .num_3=%num_3%
 echo,%time%	%status1%%ratenum1%%%	%status2%%ratenum2%%%	%status3%%ratenum3%%%	%num%	%.num_1%	%.num_2%	%.num_3%
-echo,%time%	%status1%%ratenum1%%%	%status2%%ratenum2%%%	%status3%%ratenum3%%%	%num%	%.num_1%	%.num_2%	%.num_3% >>%outfile%
+echo,%time%		%status1%%ratenum1%%%		%status2%%ratenum2%%%		%status3%%ratenum3%%%		%num%		%.num_1%			%.num_2%			%.num_3% >>%outfile%
 if %ratenum1% LSS 10 ( set "mark1= " ) else set "mark1="
 if %ratenum2% LSS 10 ( set "mark2= " ) else set "mark2="
 if %ratenum3% LSS 10 ( set "mark3= " ) else set "mark3="
-title Net Test     %ratenum1%%% %mark1%          %ratenum2%%% %mark2%          %ratenum3%%% %mark3%    %num%
+title Net Test            %ratenum1%%%     %mark1%      %ratenum2%%%      %mark2%      %ratenum3%%%      %mark3%      %num%
 ping 1.1 -n 1 -w %delay%>>nul
 goto :xunhuan
 
